@@ -18,25 +18,31 @@ cur.close()
 con.commit()
 con.close()
 
+#nam1 = StringVAR()
+#maam2 = StringVar()
 
-name = StringVar()
-email = StringVar()
-status = StringVar()
+    
+
 
 def insert():
+    nome = nam1
+    email = nam2
     con = db.connect("usuario.db")
     cur = con.cursor()
-    cur.execute("INSERT INTO cliente(nome, email) VALUES (?,?)",(name,email))
-    cur.close()
+    #insert = 'INSERT INTO cliente(nome, email) VALUES(?,?)', (nam1,nam2)
+    #insert = 'INSERT INTO cliente (nome, email) VALUES(nam1,nam2)'
+    insert = 'INSERT INTO cliente(nome, email) VALUES(?,?)'
+    cur.execute(insert, [(nome), (email)])
     con.commit()
-    con.close()
-
-
+   
+    
 
 def sair(event=NONE):
     if tkinter.messagebox.askokcancel('Sair', "Deseja realmente sair?"):
         root.destroy()
-
+def alert(event=NONE):
+    if tkinter.messagebox.askokcancel("Criado com sucesso"):
+        root.destroy()
 
 def showSobre(event=None):
     fram()
@@ -70,7 +76,7 @@ def initial():
     btn_exit()
     root.mainloop()
 
-
+#frame menu informacoes sistemas
 def fram():
     INFO_APP = "Informações do Sistema"
     newWindow = Tk()
@@ -85,15 +91,16 @@ def fram():
     newWindow.mainloop()
 
 
-# frame cadastramento cliente
+
 def func_tit(titulo):
     newWindow = Tk()
     newWindow.configure(bg='#2F4F4F')
     newWindow.geometry("500x400")
     newWindow.title(titulo)
 
-
+#frame interface cadastro
 def fram_cadCli():
+    global nam1, nam2 
     master = Tk()
 
     master.title("Cadastramento Cliente")
@@ -101,26 +108,47 @@ def fram_cadCli():
     Label(master, text="Nome:  ").grid(row=0, column=0)
     Label(master, text="Email:  ").grid(row=2, column=0)
 
-    Entry(master,textvariable=name).grid(row=0,column=1)
-    Entry(master,textvariable=email).grid(row=2, column=1)
-
+    nam1 = Entry(master).grid(row=0,column=1)
+    nam2 = Entry(master).grid(row=2, column=1) 
     Button(master, text='Submit', command=insert).grid(row=3,columnspan=2)
-
+    Button(master, text='Submit', command=alert).grid(row=3,columnspan=2)
 
 # frame lista de cliente
 def fram_listCli():
-    func_tit("Listar Clientes")
-    newWindow.mainloop()
+    master = Tk()
 
+    master.title("Localizar Cliente")
+
+    Label(master, text="Digite o nome do cliente:  ").grid(row=0, column=0)
+    Entry(master).grid(row=0,column=1)
+    Button(master, text='Submit').grid(row=3,columnspan=2)
 
 def fram_cadCid():
-    func_tit("Cadastrar Cidades")
-    newWindow.mainloop()
+    master = Tk()
+
+    master.title("Marcar Consulta")
+
+    Label(master, text="Nome:  ").grid(row=0, column=0)
+    Label(master, text="Data Consulta:  ").grid(row=2, column=0)
+    Label(master, text="Data hoje:  ").grid(row=4, column=0)
+    
+    Entry(master).grid(row=0,column=1)
+    Entry(master).grid(row=2, column=1)
+    Entry(master).grid(row=4, column=1)
+    Button(master, text='Submit', command=insert).grid(row=5,columnspan=2)
+    Button(master, text='Submit', command=alert).grid(row=5,columnspan=2)
 
 
 def fram_listCid():
-    func_tit("Listar Cidades")
-    newWindow.mainloop()
+    master = Tk()
+
+    master.title("Consultas Agendadas")
+
+    Label(master, text="Data Inicio:  ").grid(row=0, column=0)
+    Entry(master).grid(row=0,column=1)
+    Label(master, text="Data Final:  ").grid(row=4, column=0)
+    Entry(master).grid(row=4, column=1)
+    Button(master, text='Submit').grid(row=5,columnspan=2)
 
 
 def btn_exit():
