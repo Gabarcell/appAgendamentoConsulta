@@ -3,9 +3,9 @@ import tkinter.filedialog
 import cli
 
 class Inter:
-
+    #INICIALIZA FRAME PRINCIPAL
     def __init__(self, master):
-
+        self.master = master
         self.frame = Frame(master)
         self.frame.master.title("International Aplication ")
         self.frame.master.geometry("500x400")
@@ -14,7 +14,7 @@ class Inter:
         self.frame.master.protocol('WM_DELETE_WINDOW', self.sair)
         self.btn_logout()
 
-
+#                   MENU-------------------------------------------------------------------
         menu_bar = Menu(master)
         arq_menu = Menu(menu_bar, tearoff=0)
         aux_menu = Menu(menu_bar, tearoff=0)
@@ -31,7 +31,7 @@ class Inter:
         cad_menu.add_command(label='Agenda', compound='left')
         cad_menu.add_command(label='Exibir Agenda', compound='left')
 
-    #para entrar no arquivo
+#         para entrar no arquivo
     def return_cad(self):
         c = cli
         return c.Cliente(root)
